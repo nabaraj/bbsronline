@@ -70,11 +70,19 @@ function twentysixteen_setup() {
 	 *  @since Twenty Sixteen 1.2
 	 */
 	add_theme_support( 'custom-logo', array(
-		'height'      => 240,
-		'width'       => 240,
-		'flex-height' => true,
+		'height'      => 47,
+		'width'       => 150,
+		'flex-height' => false,
 	) );
+add_filter('get_custom_logo','change_logo_class');
 
+
+function change_logo_class($html)
+{
+	$html = str_replace('class="custom-logo"', 'your-custom-class', $html);
+	$html = str_replace("custom-logo-link", 'navbar-brand', $html);
+	return $html;
+}
 	/*
 	 * Enable support for Post Thumbnails on posts and pages.
 	 *
@@ -87,7 +95,8 @@ function twentysixteen_setup() {
 	register_nav_menus( array(
 		'primary' => __( 'Primary Menu', 'twentysixteen' ),
 		'social'  => __( 'Social Links Menu', 'twentysixteen' ),
-		'occasion'  => __( 'Choose your occasion', 'twentysixteen' )
+		'occasion'  => __( 'Choose your occasion', 'twentysixteen' ),
+		'category-dropdown'  => __( 'Category Dropdown', 'twentysixteen' )
 	) );
 
 	/*
@@ -182,6 +191,43 @@ function twentysixteen_widgets_init() {
 		'before_title'  => '<h2 class="widget-title">',
 		'after_title'   => '</h2>',
 	) );
+	register_sidebar( array(
+		'name'          => __( 'Choose Your Occasion', 'twentysixteen' ),
+		'id'            => 'choose-your-occasion',
+		'description'   => __( 'Appears at the bottom of the slider in homepage.', 'twentysixteen' ),
+		'before_widget' => '<section id="chooseoccasion" class="content"><div class="container-fluid %2$s">',
+		'after_widget'  => '</div></section>',
+		'before_title'  => '<h3 class="widget-title">',
+		'after_title'   => '</h3>',
+	) );
+	register_sidebar( array(
+		'name'          => __( 'Body Content Ad', 'twentysixteen' ),
+		'id'            => 'body-content-ad',
+		'description'   => __( 'Content ad', 'twentysixteen' ),
+		'before_widget' => '',
+		'after_widget'  => '',
+		'before_title'  => '<h3 class="widget-title hidden">',
+		'after_title'   => '</h3>',
+	) );
+	register_sidebar( array(
+		'name'          => __( 'Body Content Ad', 'twentysixteen' ),
+		'id'            => 'body-content-ad',
+		'description'   => __( 'Content ad', 'twentysixteen' ),
+		'before_widget' => '',
+		'after_widget'  => '',
+		'before_title'  => '<h3 class="widget-title hidden">',
+		'after_title'   => '</h3>',
+	) );
+	register_sidebar( array(
+		'name'          => __( 'Category section 1', 'twentysixteen' ),
+		'id'            => 'category-section-1',
+		'description'   => __( 'Category section 1', 'twentysixteen' ),
+		'before_widget' => '<section id="excitingcity" class="content category-post-container"><div class="container">',
+		'after_widget'  => '</div></section>',
+		'before_title'  => '<h3 class="widget-title">',
+		'after_title'   => '</h3>',
+	) );
+	
 }
 add_action( 'widgets_init', 'twentysixteen_widgets_init' );
 
